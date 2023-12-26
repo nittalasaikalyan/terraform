@@ -1,0 +1,21 @@
+resource "aws_s3_bucket" "example" {
+  bucket = "kalyan-bucket-24.12.2023"
+
+  tags = {
+    Name        = "My bucket"
+    Environment = "Prod"
+  }
+}
+resource "aws_instance" "app_server" {
+  ami           = "ami-0fc5d935ebf8bc3bc"
+  instance_type = "t2.micro"
+  key_name = "user23"
+  security_groups = ["launch-wizard-3"]
+
+  tags = {
+    Name = "user23-appserver"
+  }
+user_data= file("${path.module}/nginx.sh")
+}
+
+
